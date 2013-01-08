@@ -35,6 +35,7 @@ namespace Acceptor
             response.Header.SetField(new QuickFix.Fields.MessageEncoding("UTF-8"));
             response.Headline = new QuickFix.Fields.Headline("ole");
             response.EncodedHeadline = new QuickFix.Fields.EncodedHeadline("olé");
+            response.LinesOfText = new QuickFix.Fields.LinesOfText(0);
             Session.SendToTarget(response, sessionId);
         }
     }

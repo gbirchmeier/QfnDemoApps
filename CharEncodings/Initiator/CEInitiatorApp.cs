@@ -114,6 +114,7 @@ namespace Initiator
             n.Header.SetField(new QuickFix.Fields.MessageEncoding("UTF-8"));
             n.Headline = new QuickFix.Fields.Headline("here's some utf: ole");
             n.EncodedHeadline = new QuickFix.Fields.EncodedHeadline("here's some utf: olé");
+            n.LinesOfText = new QuickFix.Fields.LinesOfText(0);
             Session.SendToTarget(n, _session.SessionID);
         }
 
@@ -121,7 +122,23 @@ namespace Initiator
         {
             QuickFix.FIX44.News n = new QuickFix.FIX44.News();
             n.Headline = new QuickFix.Fields.Headline("it's all ascii here, bro");
+            n.LinesOfText = new QuickFix.Fields.LinesOfText(0);
             Session.SendToTarget(n, _session.SessionID);
+        }
+
+        public void OnMessage(QuickFix.FIX44.News msg, SessionID sessionId)
+        {
+            if (msg.IsSetEncodedHeadline())
+            {
+                string encoded = msg.EncodedHeadline.getValue();
+                Console.WriteLine("== Received news with encoded headline");
+                Console.WriteLine("   Headline as string: " + encoded);
+                Console.WriteLine("   Headline as bytes: " + BitConverter.ToString(Encoding.UTF8.GetBytes(encoded)));
+            }
+            else
+            {
+                Console.WriteLine("== Received news with encoded field");
+            }
         }
     }
 }
