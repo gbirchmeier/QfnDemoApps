@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using QuickFix;
 using QuickFix.Transport;
 
@@ -14,17 +13,13 @@ namespace PilotInititiator44
         static void Main(string[] args)
         {
             Console.WriteLine("=============");
-            Console.WriteLine("This is only an example program, meant to run against the Executor or SimpleAcceptor example programs.");
-            Console.WriteLine();
-            Console.WriteLine("                                                    ! ! !");
-            Console.WriteLine("              DO NOT USE THIS ON A COMMERCIAL FIX INTERFACE!  It won't work and it's a bad idea!");
-            Console.WriteLine("                                                    ! ! !");
-            Console.WriteLine();
+            Console.WriteLine("This is for evaluating new QF/n builds and features.");
+            Console.WriteLine("It's designed to communicate with PilotAcceptor44.");
             Console.WriteLine("=============");
 
             if (args.Length != 1)
             {
-                System.Console.WriteLine("usage: TradeClient.exe CONFIG_FILENAME");
+                System.Console.WriteLine("usage: PilotInitiator44.exe CONFIG_FILENAME");
                 System.Environment.Exit(2);
             }
 
@@ -35,18 +30,18 @@ namespace PilotInititiator44
                 QuickFix.SessionSettings settings = new QuickFix.SessionSettings(file);
                 PilotInit44App myApp = new PilotInit44App();
                 QuickFix.IMessageStoreFactory storeFactory = new QuickFix.FileStoreFactory(settings);
-                QuickFix.ILogFactory logFactory = new QuickFix.ScreenLogFactory(settings);
+                QuickFix.ILogFactory logFactory = new QuickFix.FileLogFactory(settings);
                 QuickFix.Transport.SocketInitiator initiator = new QuickFix.Transport.SocketInitiator(myApp, storeFactory, settings, logFactory);
 
                 initiator.Start();
                 myApp.Run();
+                initiator.Stop();
             }
             catch (System.Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            Environment.Exit(0);
         }
     }
 }

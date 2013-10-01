@@ -19,7 +19,7 @@ namespace PilotAcceptor44
 
             if (args.Length != 1)
             {
-                Console.WriteLine("usage: PilotInitiator44 CONFIG_FILENAME");
+                Console.WriteLine("usage: PilotAcceptorr44 CONFIG_FILENAME");
                 System.Environment.Exit(2);
             }
 
