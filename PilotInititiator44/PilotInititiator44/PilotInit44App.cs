@@ -29,6 +29,8 @@ namespace PilotInititiator44
                     char action = QueryAction();
                     if (action == '1')
                         TransmitNewOrderSingle();
+                    else if (action == '2')
+                        TransmitAdvertisement();
                     else if (action == 'q' || action == 'Q')
                         break;
                 }
@@ -45,11 +47,12 @@ namespace PilotInititiator44
         private char QueryAction()
         {
             Puts("==MENU==\n"
-                + "1) Send a nonsense NewOrderSingle\n"
+                + "1) Send a nonsense NewOrderSingle (35=D), so we get a ExecReport in response\n"
+                + "2) Send a nonsense Advertisement (35=7), so we get a rejection\n"
                 + "Q) Quit"
             );
 
-            HashSet<string> validActions = new HashSet<string>("1,q,Q".Split(','));
+            HashSet<string> validActions = new HashSet<string>("1,2,q,Q".Split(','));
 
             string cmd = Console.ReadLine().Trim();
             if (cmd.Length != 1 || validActions.Contains(cmd) == false)
@@ -74,6 +77,7 @@ namespace PilotInititiator44
 
         public void FromAdmin(Message message, SessionID sessionID) { Puts("Received admin message, type " + message.Header.GetField(Tags.MsgType)); }
         public void ToAdmin(Message message, SessionID sessionID) { }
+        public void ToApp(Message message, SessionID sessionID) { }
 
         public void FromApp(Message message, SessionID sessionID)
         {
@@ -90,24 +94,6 @@ namespace PilotInititiator44
             }
         }
 
-        public void ToApp(Message message, SessionID sessionID)
-        {
-            /*
-            try
-            {
-                bool possDupFlag = false;
-                if (message.Header.IsSetField(QuickFix.Fields.Tags.PossDupFlag))
-                {
-                    possDupFlag = QuickFix.Fields.Converters.BoolConverter.Convert(
-                        message.Header.GetField(QuickFix.Fields.Tags.PossDupFlag)); /// FIXME
-                }
-                if (possDupFlag)
-                    throw new DoNotSend();
-            }
-            catch (FieldNotFoundException)
-            { }
-             */
-        }
         #endregion
 
 
@@ -142,6 +128,18 @@ namespace PilotInititiator44
 
             msg.Set(new OrderQty(99));
            
+            SendMessage(msg);
+        }
+
+        private void TransmitAdvertisement()
+        {
+            QuickFix.FIX44.Advertisement msg = new QuickFix.FIX44.Advertisement(
+                new AdvId("spam"),
+                new AdvTransType("luncheon meat"),
+                new Symbol("SPAM"),
+                new AdvSide(AdvSide.SELL),
+                new Quantity(1000000));
+
             SendMessage(msg);
         }
 
