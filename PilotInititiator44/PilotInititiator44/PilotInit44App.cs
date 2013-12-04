@@ -76,7 +76,16 @@ namespace PilotInititiator44
         public void OnLogout(SessionID sessionID) { Puts("Logout - " + sessionID.ToString()); }
 
         public void FromAdmin(Message message, SessionID sessionID) { Puts("Received admin message, type " + message.Header.GetField(Tags.MsgType)); }
-        public void ToAdmin(Message message, SessionID sessionID) { }
+
+        public void ToAdmin(Message message, SessionID sessionID)
+        {
+            if (message.Header.GetField(Tags.MsgType) == MsgType.LOGON)
+            {
+                message.SetField(new QuickFix.Fields.Username("batman"));
+                message.SetField(new QuickFix.Fields.Password("gotham123"));
+            }
+        }
+        
         public void ToApp(Message message, SessionID sessionID) { }
 
         public void FromApp(Message message, SessionID sessionID)
