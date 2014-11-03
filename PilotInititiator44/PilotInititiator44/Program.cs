@@ -5,7 +5,7 @@ using System.Text;
 using QuickFix;
 using QuickFix.Transport;
 
-namespace PilotInititiator44
+namespace PilotInitiator44
 {
     class Program
     {

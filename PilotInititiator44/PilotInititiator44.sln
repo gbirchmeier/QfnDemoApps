@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PilotInititiator44", "PilotInititiator44\PilotInititiator44.csproj", "{93AE5BE3-203B-4C63-A34B-D26AE08171AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PilotInitiator44", "PilotInitiator44\PilotInitiator44.csproj", "{93AE5BE3-203B-4C63-A34B-D26AE08171AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

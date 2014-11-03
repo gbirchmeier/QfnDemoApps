@@ -6,7 +6,7 @@ using System.Text;
 using QuickFix;
 using QuickFix.Fields;
 
-namespace PilotInititiator44
+namespace PilotInitiator44
 {
     public class PilotInit44App : QuickFix.MessageCracker, QuickFix.IApplication
     {

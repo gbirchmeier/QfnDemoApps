@@ -8,8 +8,8 @@
     <ProjectGuid>{93AE5BE3-203B-4C63-A34B-D26AE08171AD}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PilotInititiator44</RootNamespace>
-    <AssemblyName>PilotInititiator44</AssemblyName>
+    <RootNamespace>PilotInitiator44</RootNamespace>
+    <AssemblyName>PilotInitiator44</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
