@@ -1,8 +1,10 @@
 require 'socket'
 
+@seqno=0
 
 def checksumify msg
   ### sum all bytes up to but not including checksum field, then mod 256
+  # this and lengthify must be run last (in either order) on a message
   out = msg
   out = msg.sub(/10=[\d]*/,"") #remove any existing CheckSum
   out << "10=#{out.sum(8)}"
@@ -11,10 +13,11 @@ end
 
 def lengthify msg
   ### number of chars following BodyLength up to and including the delim before CheckSum
+  # this and checksumify must be run last (in either order) on a message
   out = msg
   out.sub!(/9=[\d]*/,"") #remove any existing BodyLength
   length = out.match(/(35=.*?)(?:10=[\d]*$|$)/)[1].length
-  out.sub!(/35=/,"9=#{length}35=")
+  out.sub(/35=/,"9=#{length}35=")
   out
 end
 
@@ -23,7 +26,12 @@ def timify msg
   out = msg
   out.sub!(/52=[^]*/,"") # remove any preexisting SendingTime
   seqno = out.match(/34=([\d]*)/)[1]
-  out.sub!(/34=[\d]*/,"34=#{seqno}52=#{Time.new.gmtime.strftime("%Y%m%d-%H:%M:%S")}")
+  out.sub(/34=[\d]*/,"34=#{seqno}52=#{Time.new.gmtime.strftime("%Y%m%d-%H:%M:%S")}")
+end
+
+def seq msg
+  @seqno+=1
+  out.sub(/34=[\d]*/,"34=#{@seqno}")
 end
 
 # insert BodyLength/Checksum/SendingTime
