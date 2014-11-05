@@ -5,7 +5,7 @@ def checksumify msg
   ### sum all bytes up to but not including checksum field, then mod 256
   out = msg
   out = msg.sub(/10=[\d]*/,"") #remove any existing CheckSum
-  out << "#{out.sum(8)}"
+  out << "10=#{out.sum(8)}"
   out
 end
 
@@ -13,8 +13,8 @@ def lengthify msg
   ### number of chars following BodyLength up to and including the delim before CheckSum
   out = msg
   out.sub!(/9=[\d]*/,"") #remove any existing BodyLength
-  length = out.match(/(34=.*?)(?:10=[\d]*$|$)/)[1].length
-  out.sub!(/35=/,"9=#{length}35=")
+  length = out.match(/(35=.*?)(?:10=[\d]*$|$)/)[1].length
+  out.sub!(/35=/,"9=#{length}35=")
   out
 end
 
@@ -85,7 +85,7 @@ loop {
     if msg_in.include?("35=A") || msg_in.include?("35=5")
       response = reflection(msg_in)
       puts "SENDING: #{response.gsub("","|")}"
-      socket.write response
+      socket.send response,0
     end
 
     if msg_in.include?("35=5")
