@@ -33,7 +33,7 @@ def polish msg
   checksumify msg
 end
 
-def logon_response(incoming)
+def reflection(incoming)
   out = incoming
   out.sub!(/49=/,"x56=")
   out.sub!(/56=/,"49=")
@@ -79,17 +79,19 @@ loop {
   puts "Connected."
 
   loop {
-puts "loop"
     msg_in = read_fix_message(socket)
     puts "RECEIVED: #{msg_in.gsub("","|")}"
 
-    if msg_in.include?("35=A")
-      response = logon_response(msg_in)
+    if msg_in.include?("35=A") || msg_in.include?("35=5")
+      response = reflection(msg_in)
       puts "SENDING: #{response.gsub("","|")}"
-      socket.print response
+      socket.write response
     end
 
-    break
+    if msg_in.include?("35=5")
+      sleep 2
+      break
+    end
   }
 
   break
