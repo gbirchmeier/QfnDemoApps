@@ -109,3 +109,5 @@ UpgradeLog*.XML
 
 #vim temp files
 *swp
+
+.vs
