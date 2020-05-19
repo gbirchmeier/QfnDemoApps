@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>PilotAcceptor50sp1</RootNamespace>
     <AssemblyName>PilotAcceptor50sp1</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="QuickFix">
-      <HintPath>..\..\..\..\..\..\..\dev2\QfnDemoApps\Lib\net452\QuickFix.dll</HintPath>
+      <HintPath>..\..\..\..\fork\quickfixn\Messages\FIX50SP1\bin\Debug\netstandard2.0\QuickFix.dll</HintPath>
     </Reference>
     <Reference Include="QuickFix.FIX50SP1">
-      <HintPath>..\..\Lib\net452\QuickFix.FIX50SP1.dll</HintPath>
+      <HintPath>..\..\..\..\fork\quickfixn\Messages\FIX50SP1\bin\Debug\netstandard2.0\QuickFix.FIX50SP1.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

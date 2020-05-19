@@ -32,9 +32,27 @@ namespace PilotAcceptor50sp1
                 ThreadedSocketAcceptor acceptor = new ThreadedSocketAcceptor(myApp, storeFactory, settings, logFactory);
 
                 acceptor.Start();
-                Console.WriteLine("press <enter> to quit");
-                Console.Read();
-                acceptor.Stop();
+                while (true)
+                {
+                    Console.WriteLine("Enter 'q' to quit.  Enter 'p' to call stop().  Enter 'r' to call start().");
+
+                    switch (Console.Read())
+                    {
+                        case 'p':
+                            acceptor.Stop();
+                            Console.WriteLine("Stopped.");
+                            break;
+                        case 'r':
+                            acceptor.Start();
+                            Console.WriteLine("Started.");
+                            break;
+                        case 'q':
+                            acceptor.Stop();
+                            Console.WriteLine("Terminated.");
+                            return;
+                    }
+                    Console.ReadLine(); // flush it
+                }
             }
             catch (System.Exception e)
             {

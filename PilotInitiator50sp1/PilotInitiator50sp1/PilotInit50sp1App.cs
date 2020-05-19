@@ -41,7 +41,7 @@ namespace PilotInitiator50sp1
                     Puts(s);
                 }
             }
-            Console.WriteLine("Program shutdown.  (There may be a delay while logouts are exchanged.)");
+            Puts("Program shutdown.  (There may be a delay while logouts are exchanged.)");
         }
 
         private char QueryAction()
@@ -79,7 +79,7 @@ namespace PilotInitiator50sp1
 
         public void ToAdmin(Message message, SessionID sessionID)
         {
-            if (message.Header.GetField(Tags.MsgType) == MsgType.LOGON)
+            if (message.Header.GetString(Tags.MsgType) == MsgType.LOGON)
             {
                 message.SetField(new QuickFix.Fields.Username("batman"));
                 message.SetField(new QuickFix.Fields.Password("gotham123"));
@@ -142,7 +142,7 @@ namespace PilotInitiator50sp1
         {
             QuickFix.FIX50SP1.Advertisement msg = new QuickFix.FIX50SP1.Advertisement(
                 new AdvId("spam"),
-                new AdvTransType("luncheon meat"),
+                new AdvTransType(AdvTransType.NEW),
                 new AdvSide(AdvSide.SELL),
                 new Quantity(1000000));
 

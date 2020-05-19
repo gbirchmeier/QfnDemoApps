@@ -41,13 +41,19 @@ namespace PilotAcceptor50sp1
 
         public void ToApp(Message message, SessionID sessionID)
         {
-            Console.WriteLine("OUT: " + message);
+            Puts("OUT: " + message);
         }
 
         public void FromAdmin(Message message, SessionID sessionID) { }
         public void OnCreate(SessionID sessionID) { }
-        public void OnLogout(SessionID sessionID) { }
-        public void OnLogon(SessionID sessionID) { }
+        public void OnLogout(SessionID sessionID)
+        {
+            Puts($"Logout: {sessionID.ToString()}");
+        }
+        public void OnLogon(SessionID sessionID)
+        {
+            Puts($"Logon: {sessionID.ToString()}");
+        }
         public void ToAdmin(Message message, SessionID sessionID) { }
         #endregion
 
@@ -55,7 +61,7 @@ namespace PilotAcceptor50sp1
 
         public void OnMessage(QuickFix.FIX50SP1.NewOrderSingle n, SessionID s)
         {
-            Console.WriteLine("* Got a NewOrderSingle.  Responding with an ExecutionReport.");
+            Puts("Got a NewOrderSingle.  Responding with an ExecutionReport.");
 
             Side side = n.Side;
             OrdType ordType = n.OrdType;
@@ -77,7 +83,7 @@ namespace PilotAcceptor50sp1
             QuickFix.FIX50SP1.ExecutionReport exReport = new QuickFix.FIX50SP1.ExecutionReport(
                 new OrderID(GenOrderID()),
                 new ExecID(GenExecID()),
-                new ExecType(ExecType.FILL),
+                new ExecType(ExecType.TRADE),
                 new OrdStatus(OrdStatus.FILLED),
                 side,
                 new LeavesQty(0),
@@ -97,23 +103,23 @@ namespace PilotAcceptor50sp1
             }
             catch (SessionNotFound ex)
             {
-                Console.WriteLine("==session not found exception!==");
-                Console.WriteLine(ex.ToString());
+                Puts("==session not found exception!==");
+                Puts(ex.ToString());
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Puts(ex.ToString());
             }
         }
 
         public void OnMessage(QuickFix.FIX50SP1.News n, SessionID s)
         {
-            Console.WriteLine("* Got a News.  Headline: " + n.Headline.getValue());
+            Puts("Got a News.  Headline: " + n.Headline.getValue());
         }
 
         public void OnMessage(QuickFix.FIX50SP1.BusinessMessageReject n, SessionID s)
         {
-            Console.WriteLine("***The initiator rejected one of my messages.");
+            Puts("***The initiator rejected one of my messages.");
         }
 
         #endregion //MessageCracker overloads

@@ -13,7 +13,7 @@ namespace PilotInitiator50sp1
         {
             Console.WriteLine("=============");
             Console.WriteLine("This is for evaluating new QF/n builds and features.");
-            Console.WriteLine("It's designed to communicate with PilotAcceptor44.");
+            Console.WriteLine("It's designed to communicate with PilotInitiator50sp1.");
             Console.WriteLine("=============");
 
             if (args.Length != 1)
